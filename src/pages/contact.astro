@@ -1,0 +1,67 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import { site } from '../data/site.ts';
+
+const title = `Contact | ${site.name}`;
+const description = 'Get in touch with HXD Studio.';
+---
+
+<ContentLayout title={title} description={description} heading="Contact HXD Studio">
+  <div class="contact-body">
+    <p class="lead">
+      For product support, bug reports, and general inquiries, contact:
+    </p>
+
+    <div class="contact-card card">
+      <p class="email-label">Email</p>
+      <a href={`mailto:${site.supportEmail}`} class="email-address">{site.supportEmail}</a>
+      <a href={`mailto:${site.supportEmail}`} class="btn btn-primary">Email HXD Studio</a>
+    </div>
+
+    <p class="note">We aim to respond within one to two business days.</p>
+  </div>
+</ContentLayout>
+
+<style>
+  .contact-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    max-width: 480px;
+    margin-top: var(--space-xl);
+  }
+
+  .lead {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .email-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  .email-address {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .email-address:hover { color: var(--accent-blue); }
+
+  .note {
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+  }
+</style>

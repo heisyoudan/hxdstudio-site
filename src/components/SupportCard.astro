@@ -1,0 +1,47 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  href: string;
+  icon: string;
+}
+const { name, description, href, icon } = Astro.props;
+---
+
+<a href={href} class="support-card card">
+  <div class="card-header">
+    <img src={icon} alt={`${name} app icon`} class="card-icon" width="52" height="52" loading="lazy" />
+    <h3>{name}</h3>
+  </div>
+  <p>{description}</p>
+  <span class="cta">View {name} Support →</span>
+</a>
+
+<style>
+  .support-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    text-decoration: none;
+    color: inherit;
+  }
+  .support-card:hover { text-decoration: none; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .card-icon { border-radius: 12px; flex-shrink: 0; }
+
+  h3 { font-size: 1.25rem; font-weight: 600; }
+  p  { font-size: 0.9rem; }
+
+  .cta {
+    color: var(--accent-blue);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-top: auto;
+  }
+</style>

@@ -1,0 +1,260 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site.ts';
+import { getApp } from '../data/apps.ts';
+
+const vortex = getApp('vortex');
+const title = `${site.name} | Independent macOS Apps`;
+---
+
+<BaseLayout title={title} description={site.description}>
+  <div class="ambient-bl" aria-hidden="true"></div>
+  <div class="ambient-tr" aria-hidden="true"></div>
+
+  <!-- ── Hero ──────────────────────────────────────────── -->
+  <section class="section hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <p class="hero-label">HXD Studio</p>
+        <h1 class="hero-heading">
+          Thoughtful apps<br />
+          for a calmer<br />
+          workflow.
+        </h1>
+        <p class="hero-desc">
+          HXD Studio creates focused macOS tools
+          that reduce friction in everyday work.
+        </p>
+        <div class="btn-row">
+          <a href="/apps/vortex/" class="btn btn-primary">Explore Vortex</a>
+          <a href="/support/" class="btn btn-secondary">Get Support</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        {vortex && (
+          <div class="poster-frame">
+            <img
+              src={vortex.posters[0]}
+              alt="Vortex – a focused file organizer for your macOS menu bar"
+              width="600"
+              height="450"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Featured App ───────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Featured App</p>
+
+      {vortex && (
+        <div class="feature-card card">
+          <div class="feature-info">
+            <div class="app-id">
+              <img
+                src={vortex.icon}
+                alt="Vortex app icon"
+                class="app-icon"
+                width="72"
+                height="72"
+                loading="lazy"
+              />
+              <div>
+                <h2 class="app-name">{vortex.name}</h2>
+                <p class="app-tagline">{vortex.tagline}</p>
+              </div>
+            </div>
+
+            <p class="app-desc">{vortex.description}</p>
+
+            <ul class="feature-tags" aria-label="Key features">
+              {vortex.features.map(f => <li class="tag">{f}</li>)}
+            </ul>
+
+            <div class="btn-row">
+              <a href="/apps/vortex/" class="btn btn-primary">View Vortex</a>
+              <a href="/support/vortex/" class="btn btn-secondary">Get Support</a>
+            </div>
+          </div>
+
+          <div class="feature-poster">
+            <img
+              src={vortex.posters[1]}
+              alt="Vortex automatic organization"
+              width="500"
+              height="375"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Support callout ────────────────────────────────── -->
+  <section class="section support-cta">
+    <div class="container">
+      <h2>Need help with an HXD&nbsp;Studio app?</h2>
+      <p>Browse guides, troubleshooting, and contact options.</p>
+      <a href="/support/" class="btn btn-secondary">Browse Support</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Ambient lights */
+  .ambient-bl, .ambient-tr {
+    position: fixed;
+    width: 65vw;
+    height: 65vw;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+  .ambient-bl {
+    bottom: -25%;
+    left: -15%;
+    background: radial-gradient(ellipse, rgba(240, 82, 167, 0.07) 0%, transparent 70%);
+  }
+  .ambient-tr {
+    top: -25%;
+    right: -15%;
+    background: radial-gradient(ellipse, rgba(115, 119, 255, 0.07) 0%, transparent 70%);
+  }
+
+  /* Hero */
+  .hero { padding-top: calc(72px + var(--space-3xl)); }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .hero-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-pink);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-heading {
+    font-size: clamp(2.8rem, 5.5vw, 4.4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+    max-width: 44ch;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .hero-visual { display: flex; justify-content: center; }
+
+  .poster-frame {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(115, 119, 255, 0.16),
+      0 0 50px rgba(115, 119, 255, 0.07),
+      0 32px 80px rgba(0, 0, 0, 0.55);
+  }
+  .poster-frame img { width: 100%; height: auto; display: block; }
+
+  /* Featured App card */
+  .feature-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .app-id {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .app-icon { border-radius: 18px; flex-shrink: 0; }
+
+  .app-name  { font-size: 1.8rem; font-weight: 700; margin-bottom: 4px; }
+  .app-tagline { font-size: 0.9rem; color: var(--text-secondary); }
+
+  .app-desc {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+    line-height: 1.75;
+    max-width: 48ch;
+  }
+
+  .feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    margin-bottom: var(--space-xl);
+  }
+
+  .tag {
+    padding: 5px 13px;
+    border-radius: 100px;
+    background: rgba(115, 119, 255, 0.1);
+    border: 1px solid rgba(115, 119, 255, 0.2);
+    color: rgba(185, 188, 255, 0.9);
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  .feature-poster { display: flex; justify-content: center; }
+  .feature-poster img {
+    border-radius: var(--radius-lg);
+    width: 100%;
+    height: auto;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  }
+
+  /* Support CTA */
+  .support-cta .container { text-align: center; }
+  .support-cta h2 { margin-bottom: var(--space-md); }
+  .support-cta p  { margin-inline: auto; margin-bottom: var(--space-xl); max-width: 50ch; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-inner     { grid-template-columns: 1fr; }
+    .hero-visual    { order: -1; }
+    .poster-frame   { max-width: 480px; margin-inline: auto; }
+    .feature-card   { grid-template-columns: 1fr; }
+    .feature-poster { order: -1; }
+    .feature-poster img { max-width: 480px; margin-inline: auto; }
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding-top: calc(72px + var(--space-2xl)); }
+    .hero-heading { font-size: 2.4rem; }
+  }
+</style>

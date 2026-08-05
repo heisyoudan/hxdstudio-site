@@ -1,0 +1,161 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import FAQItem from '../../components/FAQItem.astro';
+import { site } from '../../data/site.ts';
+
+const title = `Vortex Support | ${site.name}`;
+const description =
+  'Find answers about setup, Downloads access, file organization, undo, and Vortex Pro.';
+
+const emailHref = `mailto:${site.supportEmail}?subject=Vortex%20Support%20Request`;
+---
+
+<ContentLayout title={title} description={description} heading="Vortex Support" subheading={description}>
+  <div class="support-body">
+
+    <section class="support-section">
+      <h2>Getting Started</h2>
+      <FAQItem question="How do I get started with Vortex?">
+        <p>
+          After installing Vortex from the App Store, launch it and Vortex will appear in your
+          menu bar. Click the icon to open the Vortex panel and follow the on-screen prompts to
+          grant Downloads folder access.
+        </p>
+      </FAQItem>
+    </section>
+
+    <section class="support-section">
+      <h2>Downloads Permission</h2>
+      <FAQItem question="How do I grant access to Downloads?">
+        <p>
+          Vortex requests access through the standard macOS permission dialog. When prompted,
+          click <strong>Allow</strong>. Vortex only monitors files in your Downloads folder, and
+          only after you explicitly grant permission.
+        </p>
+        <p>
+          If you denied permission by mistake, re-enable it in
+          <strong>System Settings → Privacy &amp; Security → Files and Folders</strong>.
+        </p>
+      </FAQItem>
+    </section>
+
+    <section class="support-section">
+      <h2>Organizing Files</h2>
+      <FAQItem question="Where does Vortex organize files?">
+        <p>
+          By default, Vortex sorts files into subfolders inside
+          <code>~/Downloads/Vortex</code> — Images, Documents, Videos, Archives, Installers,
+          and Audio. You can change the organization root in Vortex Settings.
+        </p>
+      </FAQItem>
+      <FAQItem question="How do I organize a file immediately?">
+        <p>
+          Open the Vortex panel, hover over any file to reveal action buttons, then click
+          <strong>Organize</strong>. You can also select multiple files and use the bulk
+          organize action.
+        </p>
+      </FAQItem>
+    </section>
+
+    <section class="support-section">
+      <h2>Archive and Undo</h2>
+      <FAQItem question="How do I undo a recent move?">
+        <p>
+          Vortex keeps an Archive timeline of recent moves. Use the global
+          <strong>Undo</strong> button at the top of the panel to reverse the last move, or
+          open the Archive view, find the file, and use the per-item undo action to restore it
+          to its original location.
+        </p>
+      </FAQItem>
+    </section>
+
+    <section class="support-section">
+      <h2>Vortex Pro</h2>
+      <FAQItem question="What is Vortex Pro?">
+        <p>
+          Vortex Pro unlocks advanced automation rules, extended archive history, and additional
+          customization options. It is available as a one-time purchase or subscription through
+          the Mac App Store.
+        </p>
+      </FAQItem>
+    </section>
+
+    <section class="support-section">
+      <h2>Restore Purchases</h2>
+      <FAQItem question="How do I restore Vortex Pro?">
+        <p>
+          Open Vortex, go to the purchase or settings screen, and tap
+          <strong>Restore Purchases</strong>. Make sure you are signed in with the Apple ID
+          used for the original purchase.
+        </p>
+      </FAQItem>
+    </section>
+
+    <section class="support-section">
+      <h2>Troubleshooting</h2>
+      <FAQItem question="Does Vortex upload my files?">
+        <p>
+          No. File organization runs entirely on your Mac. Vortex does not upload file contents
+          to any HXD Studio server or third-party service.
+        </p>
+      </FAQItem>
+      <FAQItem question="Vortex does not appear in my menu bar.">
+        <p>
+          Make sure Vortex is running — open it from your Applications folder. If your menu bar
+          is crowded, some icons may be hidden. Try ⌘-dragging icons to create space, or check
+          System Settings for menu bar management options.
+        </p>
+      </FAQItem>
+    </section>
+
+    <section class="support-section contact-section">
+      <h2>Contact Support</h2>
+      <p>Need more help? We're happy to assist.</p>
+      <div class="contact-card card">
+        <p>
+          Email: <a href={emailHref}>{site.supportEmail}</a>
+        </p>
+        <p class="hint">
+          When writing, please include your macOS version, Vortex version, a description of the
+          issue, and any relevant screenshots.
+        </p>
+        <a href={emailHref} class="btn btn-primary">Email Support</a>
+      </div>
+    </section>
+
+  </div>
+</ContentLayout>
+
+<style>
+  .support-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .support-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .support-section h2 {
+    font-size: 1.35rem;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .contact-section > p { margin-bottom: var(--space-md); }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+  }
+
+  .hint {
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+  }
+</style>

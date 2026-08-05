@@ -1,0 +1,176 @@
+---
+import { site } from '../data/site.ts';
+---
+
+<header class="header" id="site-header">
+  <nav class="nav container" aria-label="Main navigation">
+    <a class="nav-brand" href="/" aria-label={site.name}>
+      <span class="brand-mark" aria-hidden="true">HXD</span>
+      <span class="brand-name">{site.name}</span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      id="nav-toggle"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a class="nav-link" href="/apps/vortex/">Apps</a></li>
+      <li><a class="nav-link" href="/support/">Support</a></li>
+      <li><a class="nav-link" href="/privacy/">Privacy</a></li>
+      <li><a class="nav-link" href="/contact/">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu   = document.getElementById('nav-menu');
+  const header = document.getElementById('site-header');
+
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    menu?.classList.toggle('is-open');
+  });
+
+  window.addEventListener('scroll', () => {
+    header?.classList.toggle('scrolled', window.scrollY > 16);
+  }, { passive: true });
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    height: 72px;
+    background: rgba(9, 9, 13, 0.6);
+    border-bottom: 1px solid transparent;
+    transition:
+      background var(--dur-normal) var(--ease-out),
+      border-color var(--dur-normal) var(--ease-out),
+      backdrop-filter var(--dur-normal) var(--ease-out);
+  }
+
+  .header.scrolled {
+    background: rgba(9, 9, 13, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom-color: var(--border-subtle);
+  }
+
+  .nav {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xl);
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text-primary);
+    flex-shrink: 0;
+  }
+  .nav-brand:hover { text-decoration: none; }
+
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, rgba(240,82,167,0.14), rgba(115,119,255,0.14));
+    border: 1px solid rgba(180, 160, 220, 0.22);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .brand-name {
+    font-weight: 600;
+    font-size: 0.975rem;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+    list-style: none;
+  }
+
+  .nav-link {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .nav-link:hover { color: var(--text-primary); text-decoration: none; }
+
+  /* Mobile toggle */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--text-primary);
+  }
+
+  .bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+  }
+
+  @media (max-width: 768px) {
+    .nav-toggle { display: flex; }
+
+    .nav-menu {
+      position: fixed;
+      top: 72px;
+      inset-inline: 0;
+      background: rgba(9, 9, 13, 0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: var(--space-lg) var(--content-pad);
+      gap: var(--space-lg);
+      border-bottom: 1px solid var(--border-subtle);
+      transform: translateY(-8px);
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        transform var(--dur-normal) var(--ease-out),
+        opacity   var(--dur-normal) var(--ease-out);
+    }
+
+    .nav-menu.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-link { font-size: 1.05rem; }
+  }
+</style>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F052A7"/>
+      <stop offset="100%" stop-color="#7377FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="#0E0E14"/>
+  <rect x="0.5" y="0.5" width="31" height="31" rx="6.5" fill="none" stroke="rgba(180,160,220,0.25)"/>
+  <text
+    x="50%" y="53%"
+    dominant-baseline="middle"
+    text-anchor="middle"
+    font-family="-apple-system, BlinkMacSystemFont, sans-serif"
+    font-size="9.5"
+    font-weight="700"
+    fill="url(#g)"
+    letter-spacing="0.5"
+  >HXD</text>
+</svg>

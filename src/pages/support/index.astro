@@ -1,0 +1,36 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import SupportCard from '../../components/SupportCard.astro';
+import { site } from '../../data/site.ts';
+import { apps } from '../../data/apps.ts';
+
+const title = `Support | ${site.name}`;
+const description = 'Find guides and support for HXD Studio apps.';
+---
+
+<ContentLayout
+  title={title}
+  description={description}
+  heading="Support"
+  subheading="Find guides and support for HXD Studio apps."
+>
+  <div class="support-grid">
+    {apps.map(app => (
+      <SupportCard
+        name={app.name}
+        description="File organization, permissions, purchases, and troubleshooting."
+        href={app.supportUrl}
+        icon={app.icon}
+      />
+    ))}
+  </div>
+</ContentLayout>
+
+<style>
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+</style>

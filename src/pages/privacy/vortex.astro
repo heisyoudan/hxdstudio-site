@@ -1,0 +1,100 @@
+---
+// VERIFY ANALYTICS AND CRASH REPORTING BEFORE PUBLISHING
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import { site } from '../../data/site.ts';
+
+const title = `Vortex Privacy Policy | ${site.name}`;
+const description = 'Vortex privacy policy and data handling practices.';
+---
+
+<ContentLayout title={title} description={description} heading="Vortex Privacy Policy" subheading="Last updated: August 2026">
+  <div class="policy">
+
+    <section>
+      <h2>Overview</h2>
+      <p>
+        HXD Studio is committed to protecting your privacy. This policy explains how Vortex
+        handles your information.
+      </p>
+      <p>Vortex does not require a user account to use any of its features.</p>
+    </section>
+
+    <section>
+      <h2>File Access</h2>
+      <p>
+        Vortex accesses the Downloads folder only after you grant permission through the standard
+        macOS permission system.
+      </p>
+      <p>
+        Vortex uses this access to display, organize, move, archive, delete, and restore files
+        according to your actions and settings. Access is limited to the scope you grant.
+      </p>
+    </section>
+
+    <section>
+      <h2>Local Processing</h2>
+      <p>
+        File organization runs locally on your Mac. Vortex does not upload file contents to any
+        HXD Studio server or third-party service. Your files stay on your device.
+      </p>
+    </section>
+
+    <section>
+      <h2>Data Collection</h2>
+      <!-- VERIFY ANALYTICS AND CRASH REPORTING BEFORE PUBLISHING -->
+      <p>
+        Vortex does not collect personally identifiable information. No usage analytics are
+        collected without your knowledge.
+      </p>
+      <p>
+        If crash reporting is added in a future version, this policy will be updated before that
+        version ships.
+      </p>
+    </section>
+
+    <section>
+      <h2>Purchases</h2>
+      <p>
+        Purchases are processed by Apple through the Mac App Store. HXD Studio does not receive
+        or store your payment card information. Apple's privacy policy governs data collected
+        during the purchase process.
+      </p>
+    </section>
+
+    <section>
+      <h2>Third-Party Services</h2>
+      <p>Vortex does not integrate third-party advertising, analytics, or tracking SDKs.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>If you have questions about this privacy policy, please contact:</p>
+      <p>
+        <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>
+      </p>
+    </section>
+
+  </div>
+</ContentLayout>
+
+<style>
+  .policy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  section h2 {
+    font-size: 1.35rem;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  section p { line-height: 1.8; }
+</style>

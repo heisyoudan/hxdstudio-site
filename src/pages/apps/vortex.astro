@@ -1,0 +1,241 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PosterGallery from '../../components/PosterGallery.astro';
+import { site } from '../../data/site.ts';
+import { getApp } from '../../data/apps.ts';
+
+const vortex = getApp('vortex');
+if (!vortex) throw new Error('Vortex app not found');
+
+const title = `Vortex | ${site.name}`;
+const description = vortex.tagline;
+---
+
+<BaseLayout title={title} description={description} ogImage={vortex.posters[0]}>
+  <div class="ambient-bl" aria-hidden="true"></div>
+  <div class="ambient-tr" aria-hidden="true"></div>
+
+  <!-- ── Hero ──────────────────────────────────────────── -->
+  <section class="section vortex-hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <div class="app-id">
+          <img
+            src={vortex.icon}
+            alt="Vortex app icon"
+            class="app-icon"
+            width="80"
+            height="80"
+            loading="eager"
+          />
+          <h1>Vortex</h1>
+        </div>
+        <p class="hero-headline">
+          Take control of your Downloads<br />
+          from the menu bar.
+        </p>
+        <p class="hero-desc">
+          Vortex helps you see, organize, move, archive, and restore
+          downloaded files without repeatedly opening Finder.
+        </p>
+        <div class="btn-row">
+          {vortex.appStoreUrl && (
+            <a
+              href={vortex.appStoreUrl}
+              class="btn btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on the App Store
+            </a>
+          )}
+          <a href="/support/vortex/" class="btn btn-secondary">Vortex Support</a>
+        </div>
+      </div>
+
+      <div class="hero-poster">
+        <div class="poster-frame">
+          <img
+            src={vortex.posters[0]}
+            alt="Vortex – see and organize downloads from the menu bar"
+            width="600"
+            height="450"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Gallery ───────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <h2 class="gallery-heading">Everything you need,<br />right in your menu bar.</h2>
+      <PosterGallery posters={vortex.posters} appName="Vortex" />
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Features list ─────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <h2>Features</h2>
+      <ul class="feature-list" aria-label="Vortex features">
+        {vortex.features.map(f => (
+          <li class="feature-item card">
+            <span class="dot" aria-hidden="true"></span>
+            {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── CTA ───────────────────────────────────────────── -->
+  <section class="section cta-section">
+    <div class="container">
+      <h2>Ready to tame your downloads?</h2>
+      <p>Vortex is available exclusively on the Mac App Store.</p>
+      <div class="btn-row">
+        {vortex.appStoreUrl ? (
+          <a
+            href={vortex.appStoreUrl}
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Download on the App Store
+          </a>
+        ) : (
+          <p class="coming-soon">Coming soon to the Mac App Store.</p>
+        )}
+        <a href="/support/vortex/" class="btn btn-secondary">Support & FAQ</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ambient-bl, .ambient-tr {
+    position: fixed;
+    width: 65vw; height: 65vw;
+    pointer-events: none; z-index: 0;
+    border-radius: 50%; filter: blur(80px);
+  }
+  .ambient-bl {
+    bottom: -25%; left: -15%;
+    background: radial-gradient(ellipse, rgba(240,82,167,0.07) 0%, transparent 70%);
+  }
+  .ambient-tr {
+    top: -25%; right: -15%;
+    background: radial-gradient(ellipse, rgba(115,119,255,0.07) 0%, transparent 70%);
+  }
+
+  .vortex-hero { padding-top: calc(72px + var(--space-3xl)); }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .app-id {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .app-icon { border-radius: 20px; flex-shrink: 0; }
+
+  .app-id h1 { font-size: clamp(2.4rem, 4vw, 3.2rem); }
+
+  .hero-headline {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+    max-width: 46ch;
+    line-height: 1.75;
+  }
+
+  .btn-row { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+
+  .hero-poster { display: flex; justify-content: center; }
+
+  .poster-frame {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(115,119,255,0.16),
+      0 0 50px rgba(115,119,255,0.07),
+      0 32px 80px rgba(0,0,0,0.55);
+  }
+  .poster-frame img { width: 100%; height: auto; display: block; }
+
+  /* Gallery heading */
+  .gallery-heading {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  /* Features */
+  .feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
+    list-style: none;
+    margin-top: var(--space-xl);
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    font-size: 0.925rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--gradient-brand);
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .cta-section .container { text-align: center; }
+  .cta-section h2 { margin-bottom: var(--space-md); }
+  .cta-section > .container > p { margin-inline: auto; margin-bottom: var(--space-xl); max-width: 44ch; }
+  .cta-section .btn-row { justify-content: center; align-items: center; }
+  .coming-soon { color: var(--text-tertiary); font-size: 0.9rem; font-style: italic; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-inner  { grid-template-columns: 1fr; }
+    .hero-poster { order: -1; }
+    .poster-frame { max-width: 480px; margin-inline: auto; }
+  }
+
+  @media (max-width: 768px) {
+    .vortex-hero { padding-top: calc(72px + var(--space-2xl)); }
+    .feature-list { grid-template-columns: 1fr; }
+  }
+</style>

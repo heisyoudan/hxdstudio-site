@@ -1,0 +1,66 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import { site } from '../../data/site.ts';
+import { apps } from '../../data/apps.ts';
+
+const title = `Privacy | ${site.name}`;
+const description = 'Privacy policies for HXD Studio apps.';
+---
+
+<ContentLayout title={title} description={description} heading="Privacy" subheading="Privacy policies for HXD Studio apps.">
+  <div class="privacy-grid">
+    {apps.map(app => (
+      <a href={app.privacyUrl} class="privacy-card card">
+        <div class="card-header">
+          <img
+            src={app.icon}
+            alt={`${app.name} app icon`}
+            class="card-icon"
+            width="52"
+            height="52"
+            loading="lazy"
+          />
+          <h2>{app.name}</h2>
+        </div>
+        <p>Privacy policy and data handling practices.</p>
+        <span class="cta">View {app.name} Privacy Policy →</span>
+      </a>
+    ))}
+  </div>
+</ContentLayout>
+
+<style>
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .privacy-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    text-decoration: none;
+    color: inherit;
+  }
+  .privacy-card:hover { text-decoration: none; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .card-icon { border-radius: 12px; flex-shrink: 0; }
+
+  h2 { font-size: 1.25rem; font-weight: 600; }
+  p  { font-size: 0.9rem; }
+
+  .cta {
+    color: var(--accent-blue);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-top: auto;
+  }
+</style>

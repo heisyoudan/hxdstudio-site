@@ -1,0 +1,47 @@
+---
+interface Props {
+  posters: string[];
+  appName: string;
+}
+const { posters, appName } = Astro.props;
+---
+
+<div class="gallery">
+  {posters.map((src, i) => (
+    <div class="gallery-item">
+      <img
+        src={src}
+        alt={`${appName} – feature ${i + 1}`}
+        loading={i === 0 ? 'eager' : 'lazy'}
+        width="600"
+        height="450"
+      />
+    </div>
+  ))}
+</div>
+
+<style>
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    transition: transform var(--dur-normal) var(--ease-out);
+  }
+
+  .gallery-item img:hover { transform: translateY(-4px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-item img:hover { transform: none; }
+  }
+
+  @media (max-width: 768px) {
+    .gallery { grid-template-columns: 1fr; }
+  }
+</style>
