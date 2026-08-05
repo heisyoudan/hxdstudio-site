@@ -1,11 +1,11 @@
 ---
 import { site } from '../data/site.ts';
-const b = import.meta.env.BASE_URL;
+import { p } from '../utils/url.ts';
 ---
 
 <header class="header" id="site-header">
   <nav class="nav container" aria-label="Main navigation">
-    <a class="nav-brand" href={b} aria-label={site.name}>
+    <a class="nav-brand" href={p('/')} aria-label={site.name}>
       <span class="brand-mark" aria-hidden="true">HXD</span>
       <span class="brand-name">{site.name}</span>
     </a>
@@ -23,10 +23,10 @@ const b = import.meta.env.BASE_URL;
     </button>
 
     <ul class="nav-menu" id="nav-menu" role="list">
-      <li><a class="nav-link" href={`${b}apps/vortex/`}>Apps</a></li>
-      <li><a class="nav-link" href={`${b}support/`}>Support</a></li>
-      <li><a class="nav-link" href={`${b}privacy/`}>Privacy</a></li>
-      <li><a class="nav-link" href={`${b}contact/`}>Contact</a></li>
+      <li><a class="nav-link" href={p('/apps/vortex/')}>Apps</a></li>
+      <li><a class="nav-link" href={p('/support/')}>Support</a></li>
+      <li><a class="nav-link" href={p('/privacy/')}>Privacy</a></li>
+      <li><a class="nav-link" href={p('/contact/')}>Contact</a></li>
     </ul>
   </nav>
 </header>
