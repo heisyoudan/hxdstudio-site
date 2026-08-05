@@ -2,6 +2,7 @@
 import ContentLayout from '../../layouts/ContentLayout.astro';
 import { site } from '../../data/site.ts';
 import { apps } from '../../data/apps.ts';
+import { p } from '../../utils/url.ts';
 
 const title = `Privacy | ${site.name}`;
 const description = 'Privacy policies for HXD Studio apps.';
@@ -10,10 +11,10 @@ const description = 'Privacy policies for HXD Studio apps.';
 <ContentLayout title={title} description={description} heading="Privacy" subheading="Privacy policies for HXD Studio apps.">
   <div class="privacy-grid">
     {apps.map(app => (
-      <a href={app.privacyUrl} class="privacy-card card">
+      <a href={p(app.privacyUrl)} class="privacy-card card">
         <div class="card-header">
           <img
-            src={app.icon}
+            src={p(app.icon)}
             alt={`${app.name} app icon`}
             class="card-icon"
             width="52"

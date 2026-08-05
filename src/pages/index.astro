@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site.ts';
 import { getApp } from '../data/apps.ts';
+import { p } from '../utils/url.ts';
 
 const vortex = getApp('vortex');
 const title = `${site.name} | Independent macOS Apps`;
@@ -26,8 +27,8 @@ const title = `${site.name} | Independent macOS Apps`;
           that reduce friction in everyday work.
         </p>
         <div class="btn-row">
-          <a href="/apps/vortex/" class="btn btn-primary">Explore Vortex</a>
-          <a href="/support/" class="btn btn-secondary">Get Support</a>
+          <a href={p('/apps/vortex/')} class="btn btn-primary">Explore Vortex</a>
+          <a href={p('/support/')} class="btn btn-secondary">Get Support</a>
         </div>
       </div>
 
@@ -35,7 +36,7 @@ const title = `${site.name} | Independent macOS Apps`;
         {vortex && (
           <div class="poster-frame">
             <img
-              src={vortex.posters[0]}
+              src={p(vortex.posters[0])}
               alt="Vortex – a focused file organizer for your macOS menu bar"
               width="600"
               height="450"
@@ -60,7 +61,7 @@ const title = `${site.name} | Independent macOS Apps`;
           <div class="feature-info">
             <div class="app-id">
               <img
-                src={vortex.icon}
+                src={p(vortex.icon)}
                 alt="Vortex app icon"
                 class="app-icon"
                 width="72"
@@ -80,14 +81,14 @@ const title = `${site.name} | Independent macOS Apps`;
             </ul>
 
             <div class="btn-row">
-              <a href="/apps/vortex/" class="btn btn-primary">View Vortex</a>
-              <a href="/support/vortex/" class="btn btn-secondary">Get Support</a>
+              <a href={p('/apps/vortex/')} class="btn btn-primary">View Vortex</a>
+              <a href={p('/support/vortex/')} class="btn btn-secondary">Get Support</a>
             </div>
           </div>
 
           <div class="feature-poster">
             <img
-              src={vortex.posters[1]}
+              src={p(vortex.posters[1])}
               alt="Vortex automatic organization"
               width="500"
               height="375"
@@ -106,7 +107,7 @@ const title = `${site.name} | Independent macOS Apps`;
     <div class="container">
       <h2>Need help with an HXD&nbsp;Studio app?</h2>
       <p>Browse guides, troubleshooting, and contact options.</p>
-      <a href="/support/" class="btn btn-secondary">Browse Support</a>
+      <a href={p('/support/')} class="btn btn-secondary">Browse Support</a>
     </div>
   </section>
 </BaseLayout>

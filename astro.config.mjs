@@ -2,5 +2,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://hxdstudio.app',
+  site: 'https://heisyoudan.github.io',
+  base: '/hxdstudio-site',
 });

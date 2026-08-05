@@ -3,6 +3,7 @@ import ContentLayout from '../../layouts/ContentLayout.astro';
 import SupportCard from '../../components/SupportCard.astro';
 import { site } from '../../data/site.ts';
 import { apps } from '../../data/apps.ts';
+import { p } from '../../utils/url.ts';
 
 const title = `Support | ${site.name}`;
 const description = 'Find guides and support for HXD Studio apps.';
@@ -19,8 +20,8 @@ const description = 'Find guides and support for HXD Studio apps.';
       <SupportCard
         name={app.name}
         description="File organization, permissions, purchases, and troubleshooting."
-        href={app.supportUrl}
-        icon={app.icon}
+        href={p(app.supportUrl)}
+        icon={p(app.icon)}
       />
     ))}
   </div>

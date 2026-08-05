@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PosterGallery from '../../components/PosterGallery.astro';
 import { site } from '../../data/site.ts';
 import { getApp } from '../../data/apps.ts';
+import { p } from '../../utils/url.ts';
 
 const vortex = getApp('vortex');
 if (!vortex) throw new Error('Vortex app not found');
@@ -21,7 +22,7 @@ const description = vortex.tagline;
       <div class="hero-text">
         <div class="app-id">
           <img
-            src={vortex.icon}
+            src={p(vortex.icon)}
             alt="Vortex app icon"
             class="app-icon"
             width="80"
@@ -49,14 +50,14 @@ const description = vortex.tagline;
               View on the App Store
             </a>
           )}
-          <a href="/support/vortex/" class="btn btn-secondary">Vortex Support</a>
+          <a href={p('/support/vortex/')} class="btn btn-secondary">Vortex Support</a>
         </div>
       </div>
 
       <div class="hero-poster">
         <div class="poster-frame">
           <img
-            src={vortex.posters[0]}
+            src={p(vortex.posters[0])}
             alt="Vortex – see and organize downloads from the menu bar"
             width="600"
             height="450"
@@ -74,7 +75,7 @@ const description = vortex.tagline;
   <section class="section">
     <div class="container">
       <h2 class="gallery-heading">Everything you need,<br />right in your menu bar.</h2>
-      <PosterGallery posters={vortex.posters} appName="Vortex" />
+      <PosterGallery posters={vortex.posters.map(p)} appName="Vortex" />
     </div>
   </section>
 
@@ -115,7 +116,7 @@ const description = vortex.tagline;
         ) : (
           <p class="coming-soon">Coming soon to the Mac App Store.</p>
         )}
-        <a href="/support/vortex/" class="btn btn-secondary">Support & FAQ</a>
+        <a href={p('/support/vortex/')} class="btn btn-secondary">Support &amp; FAQ</a>
       </div>
     </div>
   </section>

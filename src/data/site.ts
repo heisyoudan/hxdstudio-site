@@ -1,6 +1,6 @@
 export const site = {
   name: 'HXD Studio',
-  url: 'https://hxdstudio.app',
+  url: 'https://heisyoudan.github.io/hxdstudio-site',
   supportEmail: 'hxd.support@gmail.com',
   copyrightYear: 2026,
   description: 'HXD Studio creates focused macOS tools for calmer, more efficient workflows.',
