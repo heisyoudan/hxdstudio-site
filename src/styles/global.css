@@ -211,3 +211,48 @@ a{color:inherit;text-decoration:none}
   transition:opacity var(--fast);cursor:pointer;
 }
 .btn-ink:hover{opacity:.82}
+
+/* ── Border Glow component ─────────────────────── */
+.bglow {
+  position: relative;
+  border-radius: 8px;
+  --mx: -999px;
+  --my: -999px;
+  --glow-r: 240px;
+  --glow-c: rgba(155,77,254,0.7);
+}
+
+/* 1px gradient border that tracks cursor position */
+.bglow-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(var(--glow-r) circle at var(--mx) var(--my), var(--glow-c), transparent 70%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+.bglow:hover .bglow-edge { opacity: 1; }
+
+/* Static border always visible (subtle) */
+.bglow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255,255,255,0.09);
+  pointer-events: none;
+}
+
+.bglow-body {
+  border-radius: calc(8px - 1px);
+  position: relative;
+  z-index: 1;
+}

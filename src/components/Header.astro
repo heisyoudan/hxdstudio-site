@@ -147,12 +147,13 @@ import { p } from '../utils/url.ts';
     display: flex;
     flex-direction: column;
     clip-path: inset(0 0 100% 0);
-    transition: clip-path 500ms var(--ease-d);
+    transition: clip-path 550ms cubic-bezier(0.22,1,0.36,1);
     visibility: hidden;
   }
-  .menu-overlay.open {
-    clip-path: inset(0 0 0% 0);
-    visibility: visible;
+  .menu-overlay.open  { clip-path: inset(0 0 0% 0); visibility: visible; }
+  .menu-overlay.closing {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 340ms cubic-bezier(0.64,0,0.78,0);
   }
 
   .menu-top {
@@ -160,64 +161,97 @@ import { p } from '../utils/url.ts';
     align-items: center;
     justify-content: space-between;
     padding-top: 20px;
+    opacity: 0;
+    transform: translateY(20px);
   }
+  .menu-overlay.open .menu-top {
+    opacity: 1; transform: none;
+    transition: opacity 500ms cubic-bezier(0.22,1,0.36,1) 55ms,
+                transform 500ms cubic-bezier(0.22,1,0.36,1) 55ms;
+  }
+  .menu-overlay.closing .menu-top {
+    opacity: 0; transform: translateY(-14px);
+    transition: opacity 200ms ease-in, transform 200ms ease-in;
+  }
+
   .menu-wordmark {
     font-size: 0.82rem;
     font-weight: 800;
     letter-spacing: 0.14em;
+    min-width: 6ch; /* prevent layout shift during typewriter */
   }
   .menu-close {
-    background: none;
-    border: none;
-    cursor: pointer;
+    background: none; border: none; cursor: pointer;
     color: rgba(244, 243, 239, 0.5);
-    font-family: var(--font);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
+    font-family: var(--font); font-size: 0.7rem;
+    font-weight: 700; letter-spacing: 0.14em;
     transition: color var(--dur-s);
   }
   .menu-close:hover { color: rgba(244, 243, 239, 0.9); }
 
   .menu-nav {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
+    flex: 1; display: flex; flex-direction: column;
+    justify-content: center; gap: 8px;
   }
 
+  /* links hidden by default — stagger in when .open */
   .menu-link {
     font-size: clamp(2.4rem, 7vw, 5.5rem);
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+    font-weight: 900; letter-spacing: -0.03em; line-height: 1.05;
     color: rgba(244, 243, 239, 0.9);
-    text-decoration: none;
-    display: inline-flex;
-    width: fit-content;
+    text-decoration: none; display: inline-flex; width: fit-content;
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  .menu-overlay.open .menu-link {
+    opacity: 1; transform: none;
+    transition: opacity 500ms cubic-bezier(0.22,1,0.36,1),
+                transform 500ms cubic-bezier(0.22,1,0.36,1);
+  }
+  .menu-overlay.open .menu-link:nth-child(1) { transition-delay: 100ms; }
+  .menu-overlay.open .menu-link:nth-child(2) { transition-delay: 168ms; }
+  .menu-overlay.open .menu-link:nth-child(3) { transition-delay: 236ms; }
+  .menu-overlay.open .menu-link:nth-child(4) { transition-delay: 304ms; }
+  .menu-overlay.open .menu-link:nth-child(5) { transition-delay: 372ms; }
+  .menu-overlay.closing .menu-link {
+    opacity: 0; transform: translateY(-14px);
+    transition: opacity 200ms ease-in, transform 200ms ease-in;
   }
 
-  /* per-letter hover — wave stagger, larger lift */
+  /* spotlight: dim siblings of the hovered link */
+  .menu-nav:has(.menu-link:hover) .menu-link:not(:hover) {
+    opacity: 0.2;
+    transition: opacity 280ms;
+  }
+
+  /* per-letter wave lift on hover */
   .menu-link .ch {
     display: inline-block;
-    transition: transform 360ms var(--ease-d), opacity 360ms var(--ease-d);
+    will-change: transform, opacity;
+    transition: transform 380ms cubic-bezier(0.22,1,0.36,1), opacity 380ms;
     transition-delay: 0ms;
   }
   .menu-link:hover .ch {
-    transform: translateY(-20px);
-    opacity: 0.28;
-    transition-delay: calc(var(--i) * 22ms);
+    transform: translateY(-22px);
+    opacity: 0.18;
+    transition-delay: calc(var(--i) * 20ms);
   }
 
   .menu-foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     padding-bottom: 24px;
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
+    font-size: 0.68rem; letter-spacing: 0.08em;
     color: rgba(244, 243, 239, 0.35);
+    opacity: 0; transform: translateY(20px);
+  }
+  .menu-overlay.open .menu-foot {
+    opacity: 1; transform: none;
+    transition: opacity 500ms cubic-bezier(0.22,1,0.36,1) 442ms,
+                transform 500ms cubic-bezier(0.22,1,0.36,1) 442ms;
+  }
+  .menu-overlay.closing .menu-foot {
+    opacity: 0; transform: translateY(-14px);
+    transition: opacity 200ms ease-in, transform 200ms ease-in;
   }
   .menu-foot a { color: rgba(244, 243, 239, 0.35); text-decoration: none; transition: color var(--dur-s); }
   .menu-foot a:hover { color: rgba(244, 243, 239, 0.8); }
@@ -228,58 +262,48 @@ import { p } from '../utils/url.ts';
 </style>
 
 <script>
-  const overlay = document.getElementById('menu-overlay') as HTMLElement | null;
-  const openBtn = document.getElementById('menu-open') as HTMLElement | null;
-  const closeBtn = document.getElementById('menu-close') as HTMLElement | null;
+  const overlay  = document.getElementById('menu-overlay') as HTMLElement | null;
+  const openBtn  = document.getElementById('menu-open')   as HTMLElement | null;
+  const closeBtn = document.getElementById('menu-close')  as HTMLElement | null;
+  const wordmark = overlay?.querySelector<HTMLElement>('.menu-wordmark');
 
-  const EASE    = 'cubic-bezier(0.22,1,0.36,1)';
-  const EASE_IN = 'cubic-bezier(0.64,0,0.78,0)';
+  // Typewriter for the menu wordmark
+  const BRAND = 'DANSHARI';
+  let twTimer: ReturnType<typeof setTimeout> | null = null;
+  let twInterval: ReturnType<typeof setInterval> | null = null;
 
-  // All animatable elements in order: top-bar → links → footer
-  function getAnimEls(): HTMLElement[] {
-    if (!overlay) return [];
-    const top   = overlay.querySelector<HTMLElement>('.menu-top');
-    const links = Array.from(overlay.querySelectorAll<HTMLElement>('.menu-link'));
-    const foot  = overlay.querySelector<HTMLElement>('.menu-foot');
-    return [top, ...links, foot].filter(Boolean) as HTMLElement[];
+  function startType() {
+    if (!wordmark) return;
+    wordmark.textContent = '';
+    let i = 0;
+    twTimer = setTimeout(() => {
+      twInterval = setInterval(() => {
+        wordmark.textContent += BRAND[i++];
+        if (i >= BRAND.length) { clearInterval(twInterval!); twInterval = null; }
+      }, 52);
+    }, 70);
   }
 
-  function hideAll() {
-    getAnimEls().forEach(el => {
-      el.style.transition = 'none';
-      el.style.opacity    = '0';
-      el.style.transform  = 'translateY(28px)';
-    });
+  function stopType() {
+    if (twTimer) { clearTimeout(twTimer); twTimer = null; }
+    if (twInterval) { clearInterval(twInterval!); twInterval = null; }
+    if (wordmark) wordmark.textContent = BRAND;
   }
 
   function setMenu(open: boolean) {
     if (!overlay || !openBtn) return;
-
     if (open) {
-      hideAll();
+      overlay.classList.remove('closing');
       overlay.classList.add('open');
       overlay.setAttribute('aria-hidden', 'false');
       openBtn.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
-
-      // Double rAF: let clip-path animation start, then stagger items in
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        getAnimEls().forEach((el, i) => {
-          const delay = 90 + i * 65;
-          el.style.transition = `opacity 520ms ${EASE} ${delay}ms, transform 520ms ${EASE} ${delay}ms`;
-          el.style.opacity    = '1';
-          el.style.transform  = 'translateY(0)';
-        });
-      }));
+      startType();
     } else {
-      // Exit: fade up and out quickly
-      getAnimEls().forEach(el => {
-        el.style.transition = `opacity 200ms ${EASE_IN}, transform 200ms ${EASE_IN}`;
-        el.style.opacity    = '0';
-        el.style.transform  = 'translateY(-14px)';
-      });
+      stopType();
+      overlay.classList.add('closing');
       setTimeout(() => {
-        overlay.classList.remove('open');
+        overlay.classList.remove('open', 'closing');
         overlay.setAttribute('aria-hidden', 'true');
         openBtn.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
@@ -287,25 +311,20 @@ import { p } from '../utils/url.ts';
     }
   }
 
-  openBtn?.addEventListener('click', () => setMenu(true));
+  openBtn?.addEventListener('click',  () => setMenu(true));
   closeBtn?.addEventListener('click', () => setMenu(false));
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') setMenu(false);
-  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
 
-  // scroll state for header
   const header = document.getElementById('site-header');
   window.addEventListener('scroll', () => {
     header?.classList.toggle('scrolled', window.scrollY > 10);
   }, { passive: true });
 
-  // split menu links into per-letter spans
   document.querySelectorAll<HTMLElement>('[data-split]').forEach(el => {
     const text = el.textContent || '';
     el.textContent = '';
-    el.innerHTML = text.split('').map((c, i) => {
-      const ch = c === ' ' ? '&nbsp;' : c;
-      return `<span class="ch" style="--i:${i}">${ch}</span>`;
-    }).join('');
+    el.innerHTML = text.split('').map((c, i) =>
+      `<span class="ch" style="--i:${i}">${c === ' ' ? '&nbsp;' : c}</span>`
+    ).join('');
   });
 </script>

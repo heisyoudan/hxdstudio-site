@@ -1,5 +1,6 @@
 ---
 import ContentLayout from '../layouts/ContentLayout.astro';
+import BorderGlow from '../components/react/BorderGlow.tsx';
 import { site } from '../data/site.ts';
 
 const title = `Contact | ${site.name}`;
@@ -12,11 +13,15 @@ const description = 'Get in touch with DANSHARI.';
       For product support, bug reports, and general inquiries, contact:
     </p>
 
-    <div class="contact-card card">
-      <p class="email-label">Email</p>
-      <a href={`mailto:${site.supportEmail}`} class="email-address">{site.supportEmail}</a>
-      <a href={`mailto:${site.supportEmail}`} class="btn btn-primary">Email DANSHARI</a>
-    </div>
+    <BorderGlow client:load>
+      <div class="glow-card">
+        <p class="email-label">EMAIL</p>
+        <a href={`mailto:${site.supportEmail}`} class="email-address">{site.supportEmail}</a>
+        <a href={`mailto:${site.supportEmail}`} class="email-cta">
+          Email DANSHARI →
+        </a>
+      </div>
+    </BorderGlow>
 
     <p class="note">We aim to respond within one to two business days.</p>
   </div>
@@ -26,42 +31,61 @@ const description = 'Get in touch with DANSHARI.';
   .contact-body {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
+    gap: 40px;
     max-width: 480px;
-    margin-top: var(--space-xl);
+    margin-top: 40px;
   }
 
   .lead {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
+    font-size: 0.9rem;
+    color: var(--t2);
     line-height: 1.7;
   }
 
-  .contact-card {
+  /* Card inside the BorderGlow wrapper */
+  .glow-card {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: 14px;
+    padding: 28px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 7px;
   }
 
   .email-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--text-tertiary);
+    color: var(--t3);
   }
 
   .email-address {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--t1);
     text-decoration: none;
-    transition: color var(--dur-fast) var(--ease-out);
+    transition: opacity 150ms;
   }
-  .email-address:hover { color: var(--accent-blue); }
+  .email-address:hover { opacity: 0.7; }
+
+  .email-cta {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--t2);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    width: fit-content;
+    transition: color 150ms, border-color 150ms;
+  }
+  .email-cta:hover { color: var(--t1); border-color: rgba(255,255,255,0.5); }
 
   .note {
-    color: var(--text-tertiary);
-    font-size: 0.875rem;
+    font-size: 0.78rem;
+    color: var(--t3);
   }
 </style>
