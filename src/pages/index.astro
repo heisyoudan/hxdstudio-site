@@ -131,6 +131,8 @@ const title = 'DANSHARI — Quiet Mac software';
   padding-top:64px;
   padding-bottom:80px;
   gap:0;
+  /* pass mouse events through to the Orb canvas below */
+  pointer-events:none;
 }
 
 .eyebrow{
@@ -170,6 +172,7 @@ const title = 'DANSHARI — Quiet Mac software';
   padding-bottom:3px;
   border-bottom:1px solid rgba(244,243,239,.3);
   width:fit-content;
+  pointer-events:auto; /* restore click target inside pointer-events:none container */
   transition:color var(--fast),border-color var(--fast);
 }
 .cta-link:hover{color:rgba(244,243,239,.96);border-color:rgba(244,243,239,.7)}

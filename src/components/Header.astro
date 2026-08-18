@@ -198,16 +198,16 @@ import { p } from '../utils/url.ts';
     width: fit-content;
   }
 
-  /* per-letter hover */
+  /* per-letter hover — wave stagger, larger lift */
   .menu-link .ch {
     display: inline-block;
-    transition: transform 320ms var(--ease-d), opacity 320ms var(--ease-d);
+    transition: transform 360ms var(--ease-d), opacity 360ms var(--ease-d);
     transition-delay: 0ms;
   }
   .menu-link:hover .ch {
-    transform: translateY(-10px);
-    opacity: 0.55;
-    transition-delay: calc(var(--i) * 14ms);
+    transform: translateY(-20px);
+    opacity: 0.28;
+    transition-delay: calc(var(--i) * 22ms);
   }
 
   .menu-foot {
@@ -232,12 +232,59 @@ import { p } from '../utils/url.ts';
   const openBtn = document.getElementById('menu-open') as HTMLElement | null;
   const closeBtn = document.getElementById('menu-close') as HTMLElement | null;
 
+  const EASE    = 'cubic-bezier(0.22,1,0.36,1)';
+  const EASE_IN = 'cubic-bezier(0.64,0,0.78,0)';
+
+  // All animatable elements in order: top-bar → links → footer
+  function getAnimEls(): HTMLElement[] {
+    if (!overlay) return [];
+    const top   = overlay.querySelector<HTMLElement>('.menu-top');
+    const links = Array.from(overlay.querySelectorAll<HTMLElement>('.menu-link'));
+    const foot  = overlay.querySelector<HTMLElement>('.menu-foot');
+    return [top, ...links, foot].filter(Boolean) as HTMLElement[];
+  }
+
+  function hideAll() {
+    getAnimEls().forEach(el => {
+      el.style.transition = 'none';
+      el.style.opacity    = '0';
+      el.style.transform  = 'translateY(28px)';
+    });
+  }
+
   function setMenu(open: boolean) {
     if (!overlay || !openBtn) return;
-    overlay.classList.toggle('open', open);
-    overlay.setAttribute('aria-hidden', String(!open));
-    openBtn.setAttribute('aria-expanded', String(open));
-    document.body.style.overflow = open ? 'hidden' : '';
+
+    if (open) {
+      hideAll();
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      openBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+
+      // Double rAF: let clip-path animation start, then stagger items in
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        getAnimEls().forEach((el, i) => {
+          const delay = 90 + i * 65;
+          el.style.transition = `opacity 520ms ${EASE} ${delay}ms, transform 520ms ${EASE} ${delay}ms`;
+          el.style.opacity    = '1';
+          el.style.transform  = 'translateY(0)';
+        });
+      }));
+    } else {
+      // Exit: fade up and out quickly
+      getAnimEls().forEach(el => {
+        el.style.transition = `opacity 200ms ${EASE_IN}, transform 200ms ${EASE_IN}`;
+        el.style.opacity    = '0';
+        el.style.transform  = 'translateY(-14px)';
+      });
+      setTimeout(() => {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        openBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }, 280);
+    }
   }
 
   openBtn?.addEventListener('click', () => setMenu(true));
@@ -252,7 +299,7 @@ import { p } from '../utils/url.ts';
     header?.classList.toggle('scrolled', window.scrollY > 10);
   }, { passive: true });
 
-  // split menu links into letters
+  // split menu links into per-letter spans
   document.querySelectorAll<HTMLElement>('[data-split]').forEach(el => {
     const text = el.textContent || '';
     el.textContent = '';
