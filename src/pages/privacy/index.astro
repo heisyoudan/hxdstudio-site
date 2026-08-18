@@ -5,10 +5,10 @@ import { apps } from '../../data/apps.ts';
 import { p } from '../../utils/url.ts';
 
 const title = `Privacy | ${site.name}`;
-const description = 'Privacy policies for HXD Studio apps.';
+const description = 'Privacy policies for DANSHARI apps.';
 ---
 
-<ContentLayout title={title} description={description} heading="Privacy" subheading="Privacy policies for HXD Studio apps.">
+<ContentLayout title={title} description={description} heading="Privacy" subheading="Privacy policies for DANSHARI apps.">
   <div class="privacy-grid">
     {apps.map(app => (
       <a href={p(app.privacyUrl)} class="privacy-card card">

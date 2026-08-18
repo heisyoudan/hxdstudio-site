@@ -28,29 +28,8 @@ const { title, description, heading, subheading } = Astro.props;
 </BaseLayout>
 
 <style>
-  .content-page {
-    min-height: 100vh;
-    padding-bottom: var(--space-3xl);
-  }
-
-  .content-hero {
-    padding-top: calc(72px + var(--space-3xl));
-    padding-bottom: var(--space-2xl);
-    text-align: center;
-  }
-
-  .content-hero h1 {
-    margin-bottom: var(--space-md);
-  }
-
-  .subheading {
-    font-size: 1.15rem;
-    color: var(--text-secondary);
-    max-width: 55ch;
-    margin-inline: auto;
-  }
-
+  /* All content-page styles now live in global.css — no local overrides needed */
   .content-body {
-    max-width: min(800px, calc(var(--content-max)));
+    max-width: 800px;
   }
 </style>

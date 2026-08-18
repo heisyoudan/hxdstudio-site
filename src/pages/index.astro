@@ -1,261 +1,370 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Orb from '../components/react/Orb.tsx';
 import { site } from '../data/site.ts';
-import { getApp } from '../data/apps.ts';
 import { p } from '../utils/url.ts';
-
-const vortex = getApp('vortex');
-const title = `${site.name} | Independent macOS Apps`;
+const title = 'DANSHARI — Quiet Mac software';
 ---
 
 <BaseLayout title={title} description={site.description}>
-  <div class="ambient-bl" aria-hidden="true"></div>
-  <div class="ambient-tr" aria-hidden="true"></div>
 
-  <!-- ── Hero ──────────────────────────────────────────── -->
-  <section class="section hero">
-    <div class="container hero-inner">
-      <div class="hero-text">
-        <p class="hero-label">HXD Studio</p>
-        <h1 class="hero-heading">
-          Thoughtful apps<br />
-          for a calmer<br />
-          workflow.
-        </h1>
-        <p class="hero-desc">
-          HXD Studio creates focused macOS tools
-          that reduce friction in everyday work.
-        </p>
-        <div class="btn-row">
-          <a href={p('/apps/vortex/')} class="btn btn-primary">Explore Vortex</a>
-          <a href={p('/support/')} class="btn btn-secondary">Get Support</a>
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     01  HERO
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="hero" id="hero">
+  <div class="orb-wrap">
+    <Orb client:load hue={0} hoverIntensity={0.35} backgroundColor="#0A0A0A" />
+  </div>
+
+  <!-- gradient mask: make text readable against bright Orb areas -->
+  <div class="orb-mask" aria-hidden="true"></div>
+
+  <div class="hero-body container">
+    <p class="eyebrow">Independent Mac Software Studio</p>
+
+    <h1 class="display">
+      <span class="display-line">REMOVE</span>
+      <span class="display-line">THE NOISE.</span>
+    </h1>
+
+    <p class="hero-sub">
+      Quiet software. Less to think about.
+    </p>
+
+    <a class="cta-link" href={p('/work/')}>
+      <span>View the work</span>
+      <span class="cta-arrow" aria-hidden="true">↓</span>
+    </a>
+  </div>
+
+  <div class="hero-corner" aria-hidden="true">
+    <span>TOKYO · JAPAN</span>
+    <span>EST. 2026</span>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     02  PHILOSOPHY  (scroll-driven)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="philo" id="philo" aria-label="Our philosophy">
+  <div class="philo-track">
+    <!-- sticky stage -->
+    <div class="philo-stage">
+      <div class="container philo-inner">
+        <div class="more-col">
+          <div class="more-item"><span class="more-text">MORE FEATURES</span><span class="strike" aria-hidden="true"></span></div>
+          <div class="more-item"><span class="more-text">MORE SETTINGS</span><span class="strike" aria-hidden="true"></span></div>
+          <div class="more-item"><span class="more-text">MORE OPTIONS</span><span class="strike" aria-hidden="true"></span></div>
+          <div class="more-item"><span class="more-text">MORE COMPLEXITY</span><span class="strike" aria-hidden="true"></span></div>
+        </div>
+        <div class="less-col">
+          <p class="less-word">LESS.</p>
+          <p class="less-sub">Every feature must earn its place.</p>
         </div>
       </div>
-
-      <div class="hero-visual">
-        {vortex && (
-          <div class="poster-frame">
-            <img
-              src={p(vortex.posters[0])}
-              alt="Vortex – a focused file organizer for your macOS menu bar"
-              width="600"
-              height="450"
-              loading="eager"
-              fetchpriority="high"
-            />
-          </div>
-        )}
-      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <hr class="divider" />
-
-  <!-- ── Featured App ───────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <p class="section-label">Featured App</p>
-
-      {vortex && (
-        <div class="feature-card card">
-          <div class="feature-info">
-            <div class="app-id">
-              <img
-                src={p(vortex.icon)}
-                alt="Vortex app icon"
-                class="app-icon"
-                width="72"
-                height="72"
-                loading="lazy"
-              />
-              <div>
-                <h2 class="app-name">{vortex.name}</h2>
-                <p class="app-tagline">{vortex.tagline}</p>
-              </div>
-            </div>
-
-            <p class="app-desc">{vortex.description}</p>
-
-            <ul class="feature-tags" aria-label="Key features">
-              {vortex.features.map(f => <li class="tag">{f}</li>)}
-            </ul>
-
-            <div class="btn-row">
-              <a href={p('/apps/vortex/')} class="btn btn-primary">View Vortex</a>
-              <a href={p('/support/vortex/')} class="btn btn-secondary">Get Support</a>
-            </div>
-          </div>
-
-          <div class="feature-poster">
-            <img
-              src={p(vortex.posters[1])}
-              alt="Vortex automatic organization"
-              width="500"
-              height="375"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      )}
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     03  WORK LINK
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="work-sec">
+  <div class="container">
+    <div class="work-header">
+      <p class="label">WORK</p>
     </div>
-  </section>
 
-  <hr class="divider" />
+    <a class="work-row" href={p('/work/vortex/')}>
+      <span class="work-index">001</span>
+      <span class="work-name">VORTEX</span>
+      <span class="work-type">APP</span>
+      <span class="work-year">2026</span>
+      <span class="work-arrow" aria-hidden="true">↗</span>
+    </a>
 
-  <!-- ── Support callout ────────────────────────────────── -->
-  <section class="section support-cta">
-    <div class="container">
-      <h2>Need help with an HXD&nbsp;Studio app?</h2>
-      <p>Browse guides, troubleshooting, and contact options.</p>
-      <a href={p('/support/')} class="btn btn-secondary">Browse Support</a>
-    </div>
-  </section>
+    <a class="work-all" href={p('/work/')}>All work →</a>
+  </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     04  IDENTITY
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="identity">
+  <div class="container">
+    <p class="identity-name">DANSHARI / 断捨離</p>
+    <p class="identity-line">Software should ask less of you.</p>
+    <p class="identity-meta">Tokyo · Japan · 2026</p>
+  </div>
+</section>
+
 </BaseLayout>
 
 <style>
-  /* Ambient lights */
-  .ambient-bl, .ambient-tr {
-    position: fixed;
-    width: 65vw;
-    height: 65vw;
-    pointer-events: none;
-    z-index: 0;
-    border-radius: 50%;
-    filter: blur(80px);
-  }
-  .ambient-bl {
-    bottom: -25%;
-    left: -15%;
-    background: radial-gradient(ellipse, rgba(240, 82, 167, 0.07) 0%, transparent 70%);
-  }
-  .ambient-tr {
-    top: -25%;
-    right: -15%;
-    background: radial-gradient(ellipse, rgba(115, 119, 255, 0.07) 0%, transparent 70%);
-  }
 
-  /* Hero */
-  .hero { padding-top: calc(72px + var(--space-3xl)); }
+/* ── Shared ──────────────────────────────────────── */
+.label{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--t3)}
 
-  .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-2xl);
-    align-items: center;
-  }
+/* ════ HERO ════════════════════════════════════════ */
+.hero{
+  position:relative;
+  height:100svh;min-height:600px;
+  background:var(--bg);
+  overflow:hidden;
+}
 
-  .hero-label {
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent-pink);
-    margin-bottom: var(--space-lg);
-  }
+.orb-wrap{
+  position:absolute;inset:0;z-index:0;
+}
+.orb-wrap :global(.orb-container){width:100%;height:100%}
 
-  .hero-heading {
-    font-size: clamp(2.8rem, 5.5vw, 4.4rem);
-    font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    margin-bottom: var(--space-lg);
-  }
+/* radial gradient that keeps text zone dark */
+.orb-mask{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 70% 80% at 70% 50%, transparent 30%, rgba(10,10,10,.7) 80%);
+}
 
-  .hero-desc {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin-bottom: var(--space-xl);
-    max-width: 44ch;
-  }
+.hero-body{
+  position:relative;z-index:2;
+  height:100%;
+  display:flex;flex-direction:column;justify-content:center;
+  padding-top:64px;
+  padding-bottom:80px;
+  gap:0;
+}
 
-  .btn-row {
-    display: flex;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-  }
+.eyebrow{
+  font-size:.68rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(244,243,239,.32);
+  margin-bottom:32px;
+}
 
-  .hero-visual { display: flex; justify-content: center; }
+.display{
+  display:flex;flex-direction:column;
+  line-height:.88;
+  margin-bottom:36px;
+}
+.display-line{
+  display:block;
+  font-size:clamp(4.5rem,13vw,11rem);
+  font-weight:900;
+  letter-spacing:-.04em;
+  color:rgba(244,243,239,.97);
+  /* subtle text shadow for readability on bright Orb spots */
+  text-shadow:0 2px 40px rgba(0,0,0,.5);
+}
 
-  .poster-frame {
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    box-shadow:
-      0 0 0 1px rgba(115, 119, 255, 0.16),
-      0 0 50px rgba(115, 119, 255, 0.07),
-      0 32px 80px rgba(0, 0, 0, 0.55);
-  }
-  .poster-frame img { width: 100%; height: auto; display: block; }
+.hero-sub{
+  font-size:clamp(.78rem,1.1vw,.92rem);
+  font-weight:500;letter-spacing:.03em;
+  color:rgba(244,243,239,.48);
+  margin-bottom:40px;
+}
 
-  /* Featured App card */
-  .feature-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-2xl);
-    align-items: center;
-  }
+.cta-link{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(244,243,239,.7);
+  text-decoration:none;
+  padding-bottom:3px;
+  border-bottom:1px solid rgba(244,243,239,.3);
+  width:fit-content;
+  transition:color var(--fast),border-color var(--fast);
+}
+.cta-link:hover{color:rgba(244,243,239,.96);border-color:rgba(244,243,239,.7)}
 
-  .app-id {
-    display: flex;
-    align-items: center;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-xl);
-  }
+.cta-arrow{
+  display:inline-block;
+  animation:bob 2.6s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
-  .app-icon { border-radius: 18px; flex-shrink: 0; }
+.hero-corner{
+  position:absolute;bottom:36px;right:var(--px);z-index:2;
+  display:flex;flex-direction:column;align-items:flex-end;gap:4px;
+}
+.hero-corner span{
+  font-size:.6rem;font-weight:600;letter-spacing:.1em;
+  color:rgba(244,243,239,.22);
+}
 
-  .app-name  { font-size: 1.8rem; font-weight: 700; margin-bottom: 4px; }
-  .app-tagline { font-size: 0.9rem; color: var(--text-secondary); }
+/* ════ PHILOSOPHY ══════════════════════════════════ */
+/* 300vh scroll runway gives sticky stage plenty of scroll range */
+.philo{position:relative;height:300vh}
 
-  .app-desc {
-    color: var(--text-secondary);
-    margin-bottom: var(--space-xl);
-    line-height: 1.75;
-    max-width: 48ch;
-  }
+.philo-track{
+  position:sticky;top:0;
+  height:100vh;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+}
 
-  .feature-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    list-style: none;
-    margin-bottom: var(--space-xl);
-  }
+.philo-stage{
+  height:100%;
+  display:flex;align-items:center;
+}
 
-  .tag {
-    padding: 5px 13px;
-    border-radius: 100px;
-    background: rgba(115, 119, 255, 0.1);
-    border: 1px solid rgba(115, 119, 255, 0.2);
-    color: rgba(185, 188, 255, 0.9);
-    font-size: 0.78rem;
-    font-weight: 500;
-  }
+.philo-inner{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:clamp(40px,6vw,100px);
+  align-items:center;
+  width:100%;
+}
 
-  .feature-poster { display: flex; justify-content: center; }
-  .feature-poster img {
-    border-radius: var(--radius-lg);
-    width: 100%;
-    height: auto;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
-  }
+.more-col{display:flex;flex-direction:column;gap:6px}
 
-  /* Support CTA */
-  .support-cta .container { text-align: center; }
-  .support-cta h2 { margin-bottom: var(--space-md); }
-  .support-cta p  { margin-inline: auto; margin-bottom: var(--space-xl); max-width: 50ch; }
+.more-item{
+  position:relative;
+  display:inline-flex;align-items:center;
+  overflow:hidden;
+}
+.more-text{
+  font-size:clamp(1.5rem,3.5vw,3rem);
+  font-weight:800;letter-spacing:-.02em;line-height:1.1;
+  color:rgba(244,243,239,.35);
+  transition:color var(--slow) var(--ease);
+  white-space:nowrap;
+}
+.strike{
+  position:absolute;left:0;top:50%;
+  height:1.5px;background:rgba(244,243,239,.55);
+  width:0;
+  transition:width var(--slow) var(--ease);
+}
 
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .hero-inner     { grid-template-columns: 1fr; }
-    .hero-visual    { order: -1; }
-    .poster-frame   { max-width: 480px; margin-inline: auto; }
-    .feature-card   { grid-template-columns: 1fr; }
-    .feature-poster { order: -1; }
-    .feature-poster img { max-width: 480px; margin-inline: auto; }
-  }
+.more-item.struck .more-text{color:rgba(244,243,239,.12)}
+.more-item.struck .strike{width:100%}
 
-  @media (max-width: 768px) {
-    .hero { padding-top: calc(72px + var(--space-2xl)); }
-    .hero-heading { font-size: 2.4rem; }
-  }
+.less-col{
+  display:flex;flex-direction:column;gap:10px;
+  text-align:right;
+  flex-shrink:0;
+}
+.less-word{
+  font-size:clamp(2.5rem,7vw,7rem);
+  font-weight:900;letter-spacing:-.04em;line-height:.9;
+  color:rgba(244,243,239,.96);
+  opacity:0;transform:translateX(20px) scale(.95);
+  transition:opacity var(--slow) var(--ease),transform var(--slow) cubic-bezier(.34,1.56,.64,1);
+}
+.less-sub{
+  font-size:clamp(.62rem,.9vw,.78rem);
+  font-weight:600;letter-spacing:.07em;
+  color:rgba(244,243,239,.32);
+  opacity:0;transform:translateX(12px);
+  transition:opacity var(--slow) var(--ease) .2s,transform var(--slow) var(--ease) .2s;
+}
+.less-word.show,.less-sub.show{opacity:1;transform:none}
+
+/* ════ WORK SECTION ════════════════════════════════ */
+.work-sec{
+  padding-block:clamp(64px,8vw,120px);
+  border-top:1px solid var(--rule);
+}
+.work-header{margin-bottom:32px}
+
+.work-row{
+  display:grid;
+  grid-template-columns:52px 1fr auto auto 32px;
+  align-items:baseline;
+  gap:24px;
+  padding:28px 0;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  text-decoration:none;color:inherit;
+  transition:background var(--fast);
+}
+.work-row:hover{background:var(--surface)}
+
+.work-index{font-size:.68rem;font-weight:700;letter-spacing:.08em;color:var(--t3)}
+
+.work-name{
+  font-size:clamp(1.8rem,4vw,3.2rem);
+  font-weight:900;letter-spacing:-.02em;line-height:1;
+  color:var(--t1);
+  transition:transform var(--mid) var(--ease);
+}
+.work-row:hover .work-name{transform:translateX(10px)}
+
+.work-type{
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--t3);
+  border:1px solid var(--rule);padding:4px 10px;border-radius:100px;
+}
+.work-year{font-size:.68rem;font-weight:600;letter-spacing:.06em;color:var(--t3)}
+
+.work-arrow{
+  font-size:1rem;color:var(--t3);justify-self:end;
+  transition:transform var(--mid) var(--ease),color var(--fast);
+}
+.work-row:hover .work-arrow{transform:translate(4px,-4px);color:var(--t1)}
+
+.work-all{
+  display:block;margin-top:20px;padding-top:16px;
+  font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t3);
+  border-top:1px solid var(--rule);
+  text-decoration:none;
+  transition:color var(--fast);
+}
+.work-all:hover{color:var(--t1)}
+
+/* ════ IDENTITY ════════════════════════════════════ */
+.identity{
+  padding-block:clamp(64px,8vw,120px);
+  border-top:1px solid var(--rule);
+}
+.identity-name{
+  font-size:clamp(.8rem,1.4vw,1rem);
+  font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--t2);margin-bottom:18px;
+}
+.identity-line{
+  font-size:clamp(1.2rem,2.5vw,1.8rem);
+  font-weight:700;letter-spacing:-.01em;
+  color:var(--t1);margin-bottom:14px;
+}
+.identity-meta{
+  font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--t3);
+}
+
+/* ════ Responsive ══════════════════════════════════ */
+@media(max-width:768px){
+  .philo-inner{grid-template-columns:1fr;gap:36px}
+  .less-col{text-align:left}
+  .work-row{grid-template-columns:36px 1fr 28px;gap:12px}
+  .work-type,.work-year{display:none}
+}
 </style>
+
+<script>
+// ─── Philosophy: scroll-linked strikethrough ─────────────
+const philo   = document.getElementById('philo') as HTMLElement | null;
+const items   = document.querySelectorAll<HTMLElement>('.more-item');
+const lessW   = document.querySelector<HTMLElement>('.less-word');
+const lessSub = document.querySelector<HTMLElement>('.less-sub');
+
+let raf = false;
+function updatePhilo() {
+  raf = false;
+  if (!philo) return;
+  const r   = philo.getBoundingClientRect();
+  const vh  = window.innerHeight;
+  // progress: 0 = section enters, 1 = section exits
+  const p   = Math.max(0, Math.min(1, (vh - r.top) / (vh + philo.offsetHeight * .6)));
+
+  items.forEach((el, i) => {
+    el.classList.toggle('struck', p > 0.08 + i * 0.14);
+  });
+  lessW?.classList.toggle('show',  p > 0.68);
+  lessSub?.classList.toggle('show',p > 0.74);
+}
+
+window.addEventListener('scroll', () => {
+  if (!raf) { raf = true; requestAnimationFrame(updatePhilo); }
+}, { passive: true });
+updatePhilo();
+</script>

@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PosterGallery from '../../components/PosterGallery.astro';
 import { site } from '../../data/site.ts';
 import { getApp } from '../../data/apps.ts';
 import { p } from '../../utils/url.ts';
@@ -13,230 +12,358 @@ const description = vortex.tagline;
 ---
 
 <BaseLayout title={title} description={description} ogImage={vortex.posters[0]}>
-  <div class="ambient-bl" aria-hidden="true"></div>
-  <div class="ambient-tr" aria-hidden="true"></div>
 
-  <!-- ── Hero ──────────────────────────────────────────── -->
-  <section class="section vortex-hero">
-    <div class="container hero-inner">
-      <div class="hero-text">
-        <div class="app-id">
-          <img
-            src={p(vortex.icon)}
-            alt="Vortex app icon"
-            class="app-icon"
-            width="80"
-            height="80"
-            loading="eager"
-          />
-          <h1>Vortex</h1>
-        </div>
-        <p class="hero-headline">
-          Take control of your Downloads<br />
-          from the menu bar.
-        </p>
-        <p class="hero-desc">
-          Vortex helps you see, organize, move, archive, and restore
-          downloaded files without repeatedly opening Finder.
-        </p>
-        <div class="btn-row">
-          {vortex.appStoreUrl && (
-            <a
-              href={vortex.appStoreUrl}
-              class="btn btn-primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View on the App Store
-            </a>
-          )}
-          <a href={p('/support/vortex/')} class="btn btn-secondary">Vortex Support</a>
-        </div>
+<!-- ═══ HERO (dark) ═══ -->
+<section class="v-hero">
+  <div class="container v-hero-inner">
+    <div class="v-hero-text">
+      <div class="v-app-id">
+        <img
+          src={p(vortex.icon)}
+          alt="Vortex app icon"
+          class="v-app-icon"
+          width="72"
+          height="72"
+          loading="eager"
+        />
+        <h1 class="v-app-name">VORTEX</h1>
       </div>
 
-      <div class="hero-poster">
-        <div class="poster-frame">
-          <img
-            src={p(vortex.posters[0])}
-            alt="Vortex – see and organize downloads from the menu bar"
-            width="600"
-            height="450"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
+      <h2 class="v-headline blur-in">
+        Take control of your Downloads<br />from the menu bar.
+      </h2>
 
-  <hr class="divider" />
+      <p class="v-desc blur-in" style="animation-delay:120ms">
+        Vortex helps you see, organize, move, archive, and restore
+        downloaded files without repeatedly opening Finder.
+      </p>
 
-  <!-- ── Gallery ───────────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <h2 class="gallery-heading">Everything you need,<br />right in your menu bar.</h2>
-      <PosterGallery posters={vortex.posters.map(p)} appName="Vortex" />
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- ── Features list ─────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <h2>Features</h2>
-      <ul class="feature-list" aria-label="Vortex features">
-        {vortex.features.map(f => (
-          <li class="feature-item card">
-            <span class="dot" aria-hidden="true"></span>
-            {f}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- ── CTA ───────────────────────────────────────────── -->
-  <section class="section cta-section">
-    <div class="container">
-      <h2>Ready to tame your downloads?</h2>
-      <p>Vortex is available exclusively on the Mac App Store.</p>
-      <div class="btn-row">
+      <div class="v-cta blur-in" style="animation-delay:240ms">
         {vortex.appStoreUrl ? (
-          <a
-            href={vortex.appStoreUrl}
-            class="btn btn-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Download on the App Store
+          <a class="btn-store" href={vortex.appStoreUrl}
+             target="_blank" rel="noopener noreferrer">
+            Download on the App Store ↗
           </a>
         ) : (
-          <p class="coming-soon">Coming soon to the Mac App Store.</p>
+          <span class="btn-soon">Coming soon to the Mac App Store</span>
         )}
-        <a href={p('/support/vortex/')} class="btn btn-secondary">Support &amp; FAQ</a>
+        <a class="btn-ghost" href={p('/support/vortex/')}>Support &amp; FAQ</a>
       </div>
     </div>
-  </section>
+
+    <div class="v-hero-poster blur-in" style="animation-delay:160ms">
+      <div class="v-poster-frame">
+        <img
+          src={p(vortex.posters[0])}
+          alt="Vortex — see and organize downloads from the menu bar"
+          width="600"
+          height="450"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES (light, alternating) ═══ -->
+<section class="v-features">
+  {vortex.featureDetails.map((f, i) => (
+    <div class="v-feature">
+      <div class="container v-feature-inner">
+        <figure class="v-feature-media reveal">
+          <img
+            src={p(f.poster)}
+            alt={f.title}
+            width="640"
+            height="480"
+            loading="lazy"
+          />
+        </figure>
+        <div class="v-feature-body reveal">
+          <p class="v-feature-index">0{i + 1}</p>
+          <h3 class="v-feature-title">{f.title}</h3>
+          <p class="v-feature-desc">{f.description}</p>
+          <ul class="v-feature-tags" aria-label="Highlights">
+            {f.tags.map(t => <li>{t}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  ))}
+</section>
+
+<!-- ═══ CTA (dark) ═══ -->
+<section class="v-bottom">
+  <div class="container v-bottom-inner">
+    <h2 class="v-bottom-title">Ready to tame your downloads?</h2>
+    <p class="v-bottom-sub">Available exclusively on the Mac App Store.</p>
+    <div class="v-bottom-cta">
+      {vortex.appStoreUrl ? (
+        <a class="btn-store" href={vortex.appStoreUrl}
+           target="_blank" rel="noopener noreferrer">
+          Download on the App Store ↗
+        </a>
+      ) : (
+        <span class="btn-soon">Coming soon to the Mac App Store</span>
+      )}
+    </div>
+  </div>
+</section>
+
 </BaseLayout>
 
 <style>
-  .ambient-bl, .ambient-tr {
-    position: fixed;
-    width: 65vw; height: 65vw;
-    pointer-events: none; z-index: 0;
-    border-radius: 50%; filter: blur(80px);
-  }
-  .ambient-bl {
-    bottom: -25%; left: -15%;
-    background: radial-gradient(ellipse, rgba(240,82,167,0.07) 0%, transparent 70%);
-  }
-  .ambient-tr {
-    top: -25%; right: -15%;
-    background: radial-gradient(ellipse, rgba(115,119,255,0.07) 0%, transparent 70%);
-  }
 
-  .vortex-hero { padding-top: calc(72px + var(--space-3xl)); }
+/* ═══ HERO ═══ */
+.v-hero {
+  background: #0A0A0A;
+  padding-top: calc(64px + 72px);
+  padding-bottom: 96px;
+}
 
-  .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-2xl);
-    align-items: center;
-  }
+.v-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
 
-  .app-id {
-    display: flex;
-    align-items: center;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-xl);
-  }
+/* blur-to-clear entrance */
+.blur-in {
+  animation: blur-in 800ms var(--ease-d) both;
+}
+@keyframes blur-in {
+  from { opacity: 0; filter: blur(14px); transform: translateY(16px); }
+  to   { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
 
-  .app-icon { border-radius: 20px; flex-shrink: 0; }
+.v-app-id {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
 
-  .app-id h1 { font-size: clamp(2.4rem, 4vw, 3.2rem); }
+.v-app-icon { border-radius: 16px; flex-shrink: 0; }
 
-  .hero-headline {
-    font-size: clamp(1.7rem, 3vw, 2.4rem);
-    font-weight: 700;
-    line-height: 1.18;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
-    margin-bottom: var(--space-lg);
-  }
+.v-app-name {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: rgba(244, 243, 239, 0.9);
+}
 
-  .hero-desc {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    margin-bottom: var(--space-xl);
-    max-width: 46ch;
-    line-height: 1.75;
-  }
+.v-headline {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: rgba(244, 243, 239, 0.96);
+  margin-bottom: 24px;
+}
 
-  .btn-row { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+.v-desc {
+  font-size: 0.95rem;
+  color: rgba(244, 243, 239, 0.55);
+  line-height: 1.7;
+  max-width: 46ch;
+  margin-bottom: 36px;
+}
 
-  .hero-poster { display: flex; justify-content: center; }
+.v-cta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
-  .poster-frame {
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    box-shadow:
-      0 0 0 1px rgba(115,119,255,0.16),
-      0 0 50px rgba(115,119,255,0.07),
-      0 32px 80px rgba(0,0,0,0.55);
-  }
-  .poster-frame img { width: 100%; height: auto; display: block; }
+.btn-store {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 22px;
+  background: rgba(244, 243, 239, 0.95);
+  color: #0A0A0A;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: opacity var(--dur-s);
+}
+.btn-store:hover { opacity: 0.82; }
 
-  /* Gallery heading */
-  .gallery-heading {
-    text-align: center;
-    margin-bottom: var(--space-2xl);
-  }
+.btn-soon {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(244, 243, 239, 0.4);
+  font-style: italic;
+}
 
-  /* Features */
-  .feature-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: var(--space-md);
-    list-style: none;
-    margin-top: var(--space-xl);
-  }
+.btn-ghost {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(244, 243, 239, 0.6);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(244, 243, 239, 0.3);
+  transition: color var(--dur-s), border-color var(--dur-s);
+}
+.btn-ghost:hover { color: rgba(244, 243, 239, 0.9); border-color: rgba(244, 243, 239, 0.9); }
 
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-lg);
-    font-size: 0.925rem;
-    font-weight: 500;
-    color: var(--text-primary);
-  }
+.v-hero-poster {
+  display: flex;
+  justify-content: center;
+}
 
-  .dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--gradient-brand);
-    flex-shrink: 0;
-  }
+.v-poster-frame {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(244, 243, 239, 0.08),
+    0 40px 90px rgba(0, 0, 0, 0.6);
+}
+.v-poster-frame img { width: 100%; height: auto; display: block; }
 
-  /* CTA */
-  .cta-section .container { text-align: center; }
-  .cta-section h2 { margin-bottom: var(--space-md); }
-  .cta-section > .container > p { margin-inline: auto; margin-bottom: var(--space-xl); max-width: 44ch; }
-  .cta-section .btn-row { justify-content: center; align-items: center; }
-  .coming-soon { color: var(--text-tertiary); font-size: 0.9rem; font-style: italic; }
+/* ═══ FEATURES ═══ */
+.v-feature {
+  padding-block: 96px;
+  border-bottom: 1px solid var(--border);
+}
+.v-feature:last-child { border-bottom: none; }
 
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .hero-inner  { grid-template-columns: 1fr; }
-    .hero-poster { order: -1; }
-    .poster-frame { max-width: 480px; margin-inline: auto; }
-  }
+.v-feature-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
 
-  @media (max-width: 768px) {
-    .vortex-hero { padding-top: calc(72px + var(--space-2xl)); }
-    .feature-list { grid-template-columns: 1fr; }
-  }
+/* alternate: even items flip the order */
+.v-feature:nth-child(even) .v-feature-inner .v-feature-media {
+  order: 2;
+}
+
+.v-feature-media img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+.v-feature-index {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  margin-bottom: 14px;
+}
+
+.v-feature-title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+
+.v-feature-desc {
+  font-size: 0.92rem;
+  color: var(--ink-2);
+  line-height: 1.7;
+  max-width: 44ch;
+  margin-bottom: 24px;
+}
+
+.v-feature-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+.v-feature-tags li {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+}
+
+/* ═══ CTA ═══ */
+.v-bottom {
+  background: #0A0A0A;
+  padding-block: 96px;
+}
+
+.v-bottom-inner {
+  text-align: center;
+}
+
+.v-bottom-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: rgba(244, 243, 239, 0.96);
+  margin-bottom: 14px;
+}
+
+.v-bottom-sub {
+  font-size: 0.85rem;
+  color: rgba(244, 243, 239, 0.45);
+  margin-bottom: 36px;
+}
+
+.v-bottom-cta {
+  display: flex;
+  justify-content: center;
+}
+
+/* ═══ scroll reveal ═══ */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 700ms var(--ease-d), transform 700ms var(--ease-d);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══ Responsive ═══ */
+@media (max-width: 900px) {
+  .v-hero-inner { grid-template-columns: 1fr; }
+  .v-hero-poster { order: -1; }
+  .v-feature-inner { grid-template-columns: 1fr; gap: 40px; }
+  .v-feature:nth-child(even) .v-feature-inner .v-feature-media { order: 0; }
+}
+
+/* ═══ Reduced motion ═══ */
+@media (prefers-reduced-motion: reduce) {
+  .blur-in { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
 </style>
+
+<script>
+  // ─── scroll reveal ────────────────────────────────────────
+  const revealEls = document.querySelectorAll<HTMLElement>('.reveal');
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  revealEls.forEach((el) => io.observe(el));
+</script>
