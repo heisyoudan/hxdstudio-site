@@ -67,23 +67,15 @@ const title = 'DANSHARI — Quiet Mac software';
 </section>
 
 <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     03  WORK LINK
+     03  WORK ENTRY — single CTA, no product list
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <section class="work-sec">
   <div class="container">
-    <div class="work-header">
-      <p class="label">WORK</p>
-    </div>
-
-    <a class="work-row" href={p('/work/vortex/')}>
-      <span class="work-index">001</span>
-      <span class="work-name">VORTEX</span>
-      <span class="work-type">APP</span>
-      <span class="work-year">2026</span>
-      <span class="work-arrow" aria-hidden="true">↗</span>
+    <a class="work-cta" href={p('/work/')}>
+      <span class="work-cta-label">WORK</span>
+      <span class="work-cta-text">View all work</span>
+      <span class="work-cta-arrow" aria-hidden="true">↗</span>
     </a>
-
-    <a class="work-all" href={p('/work/')}>All work →</a>
   </div>
 </section>
 
@@ -261,58 +253,44 @@ const title = 'DANSHARI — Quiet Mac software';
 }
 .less-word.show,.less-sub.show{opacity:1;transform:none}
 
-/* ════ WORK SECTION ════════════════════════════════ */
+/* ════ WORK CTA ═══════════════════════════════════ */
 .work-sec{
-  padding-block:clamp(64px,8vw,120px);
+  padding-block:clamp(56px,7vw,96px);
   border-top:1px solid var(--rule);
 }
-.work-header{margin-bottom:32px}
 
-.work-row{
-  display:grid;
-  grid-template-columns:52px 1fr auto auto 32px;
+.work-cta{
+  display:flex;
   align-items:baseline;
   gap:24px;
-  padding:28px 0;
-  border-top:1px solid var(--rule);
-  border-bottom:1px solid var(--rule);
-  text-decoration:none;color:inherit;
-  transition:background var(--fast);
+  text-decoration:none;
+  color:inherit;
+  width:fit-content;
 }
-.work-row:hover{background:var(--surface)}
 
-.work-index{font-size:.68rem;font-weight:700;letter-spacing:.08em;color:var(--t3)}
+.work-cta-label{
+  font-size:.62rem;font-weight:700;letter-spacing:.16em;
+  color:var(--t3);flex-shrink:0;
+}
 
-.work-name{
+.work-cta-text{
   font-size:clamp(1.8rem,4vw,3.2rem);
   font-weight:900;letter-spacing:-.02em;line-height:1;
   color:var(--t1);
   transition:transform var(--mid) var(--ease);
 }
-.work-row:hover .work-name{transform:translateX(10px)}
 
-.work-type{
-  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+.work-cta-arrow{
+  font-size:1.2rem;
   color:var(--t3);
-  border:1px solid var(--rule);padding:4px 10px;border-radius:100px;
-}
-.work-year{font-size:.68rem;font-weight:600;letter-spacing:.06em;color:var(--t3)}
-
-.work-arrow{
-  font-size:1rem;color:var(--t3);justify-self:end;
   transition:transform var(--mid) var(--ease),color var(--fast);
 }
-.work-row:hover .work-arrow{transform:translate(4px,-4px);color:var(--t1)}
 
-.work-all{
-  display:block;margin-top:20px;padding-top:16px;
-  font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--t3);
-  border-top:1px solid var(--rule);
-  text-decoration:none;
-  transition:color var(--fast);
+.work-cta:hover .work-cta-text{transform:translateX(8px)}
+.work-cta:hover .work-cta-arrow{
+  transform:translate(6px,-6px);
+  color:var(--t1);
 }
-.work-all:hover{color:var(--t1)}
 
 /* ════ IDENTITY ════════════════════════════════════ */
 .identity{
