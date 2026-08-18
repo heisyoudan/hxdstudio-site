@@ -204,7 +204,7 @@ import { p } from '../utils/url.ts';
     transform: translateY(28px);
   }
   .menu-overlay.open .menu-link {
-    opacity: 1; transform: none;
+    opacity: 0.62; transform: none;
     transition: opacity 500ms cubic-bezier(0.22,1,0.36,1),
                 transform 500ms cubic-bezier(0.22,1,0.36,1);
   }
@@ -218,9 +218,13 @@ import { p } from '../utils/url.ts';
     transition: opacity 200ms ease-in, transform 200ms ease-in;
   }
 
-  /* spotlight: dim siblings of the hovered link */
+  /* hover: light up the active link, slightly dim siblings */
+  .menu-link:hover {
+    opacity: 1;
+    transition: opacity 200ms;
+  }
   .menu-nav:has(.menu-link:hover) .menu-link:not(:hover) {
-    opacity: 0.2;
+    opacity: 0.32;
     transition: opacity 280ms;
   }
 
