@@ -1,7 +1,7 @@
 ---
 import { site } from '../data/site.ts';
 import { p } from '../utils/url.ts';
-import Header from '../components/Header.astro';
+  import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
@@ -19,9 +19,9 @@ const {
   ogImage = site.socialImage,
 } = Astro.props;
 
-const ogImageUrl = new URL(
+  const ogImageUrl = new URL(
   import.meta.env.BASE_URL + ogImage.replace(/^\//, ''),
-  site.url.replace(/\/hxdstudio-site$/, ''),
+  site.url.replace(/\/danshari-studio$/, ''),
 ).href;
 ---
 

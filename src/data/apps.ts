@@ -27,9 +27,10 @@ export const apps: App[] = [
     description:
       'See new downloads instantly, organize files automatically, act on individual items, and safely undo recent moves.',
     icon: '/brand/vortex-app-icon.png',
-    appStoreUrl: null,
-    supportUrl: '/support/vortex/',
-    privacyUrl: '/privacy/vortex/',
+    // Use the App Store ID link which redirects per region
+    appStoreUrl: 'https://apps.apple.com/app/id6772141575',
+    supportUrl: 'https://heisyoudan.github.io/danshari-studio/support/vortex/',
+    privacyUrl: 'https://heisyoudan.github.io/danshari-studio/privacy/vortex/',
     posters: [
       '/media/vortex/vortex-poster-01-core-value.png',
       '/media/vortex/vortex-poster-02-auto-organize.png',
