@@ -15,8 +15,14 @@ const description = 'Get in touch with DANSHARI.';
     <div class="contact-card">
       <p class="email-label">EMAIL</p>
       <p class="email-address">{site.supportEmail}</p>
-      <a href={`mailto:${site.supportEmail}`} class="email-cta">
-        Email DANSHARI →
+      <a
+        href={`mailto:${site.supportEmail}`}
+        class="email-cta"
+        id="email-cta"
+        data-email={site.supportEmail}
+      >
+        <span class="cta-default">EMAIL DANSHARI →</span>
+        <span class="cta-copied" aria-hidden="true">COPIED ✓</span>
       </a>
     </div>
 
@@ -76,11 +82,37 @@ const description = 'Get in touch with DANSHARI.';
     border-bottom: 1px solid rgba(255,255,255,0.15);
     width: fit-content;
     transition: color 150ms, border-color 150ms;
+    position: relative;
   }
   .email-cta:hover { color: var(--t1); border-color: rgba(255,255,255,0.5); }
+
+  .cta-copied {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 150ms;
+    color: var(--accent);
+    pointer-events: none;
+  }
+  /* js adds .did-copy */
+  .email-cta.did-copy .cta-default { opacity: 0; }
+  .email-cta.did-copy .cta-copied  { opacity: 1; }
 
   .note {
     font-size: 0.78rem;
     color: var(--t3);
   }
 </style>
+
+<script>
+  const btn = document.getElementById('email-cta') as HTMLAnchorElement | null;
+  btn?.addEventListener('click', () => {
+    const email = btn.dataset.email ?? '';
+    navigator.clipboard.writeText(email).catch(() => {});
+    btn.classList.add('did-copy');
+    setTimeout(() => btn.classList.remove('did-copy'), 2000);
+    // mailto: fires via the default href — no preventDefault needed
+  });
+</script>
