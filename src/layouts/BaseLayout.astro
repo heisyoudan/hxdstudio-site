@@ -20,9 +20,8 @@ const {
 } = Astro.props;
 
   const ogImageUrl = new URL(
-  import.meta.env.BASE_URL + ogImage.replace(/^\//, ''),
-  site.url.replace(/\/danshari-studio$/, ''),
-).href;
+    site.url.replace(/\/$/, '') + '/' + ogImage.replace(/^\//, ''),
+  ).href;
 ---
 
 <!doctype html>

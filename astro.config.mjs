@@ -3,8 +3,8 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 
 export default defineConfig({
-  site: 'https://heisyoudan.github.io/danshari-studio',
-  base: '/danshari-studio',
+  site: 'https://heisyoudan.github.io',
+  base: '/hxdstudio-site',
   integrations: [react()],
   redirects: {
     '/apps/vortex/': '/work/vortex/',

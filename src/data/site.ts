@@ -1,6 +1,6 @@
 export const site = {
   name: 'Danshari Studio',
-  url: 'https://heisyoudan.github.io/danshari-studio',
+  url: 'https://heisyoudan.github.io/hxdstudio-site',
   supportEmail: 'hxd.support@gmail.com',
   copyrightYear: 2026,
   description: 'Danshari Studio creates focused macOS tools for calmer, more efficient workflows.',

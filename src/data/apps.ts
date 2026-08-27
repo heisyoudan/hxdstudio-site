@@ -29,8 +29,8 @@ export const apps: App[] = [
     icon: '/brand/vortex-app-icon.png',
     // Use the App Store ID link which redirects per region
     appStoreUrl: 'https://apps.apple.com/app/id6772141575',
-    supportUrl: 'https://heisyoudan.github.io/danshari-studio/support/vortex/',
-    privacyUrl: 'https://heisyoudan.github.io/danshari-studio/privacy/vortex/',
+    supportUrl: 'https://heisyoudan.github.io/hxdstudio-site/support/vortex/',
+    privacyUrl: 'https://heisyoudan.github.io/hxdstudio-site/privacy/vortex/',
     posters: [
       '/media/vortex/vortex-poster-01-core-value.png',
       '/media/vortex/vortex-poster-02-auto-organize.png',
