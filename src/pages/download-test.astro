@@ -8,7 +8,7 @@ import { p } from '../utils/url.ts';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
-    <title>Connection Test</title>
+    <title>Vortex — Connection Test</title>
     <style>
       * {
         margin: 0;
@@ -31,12 +31,25 @@ import { p } from '../utils/url.ts';
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 16px;
+        gap: 20px;
         text-align: center;
+      }
+      .vortex-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      }
+      .vortex-name {
+        font-size: 1.25rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
       }
       a.btn {
         display: inline-block;
         padding: 16px 40px;
+        margin-top: 8px;
         background: #f4f3ef;
         color: #0a0a0a;
         font-size: 1rem;
@@ -53,8 +66,10 @@ import { p } from '../utils/url.ts';
   </head>
   <body>
     <main>
-      <a class="btn" href={p('/files/test-file.txt')} download>
-        Download Test File
+      <img class="vortex-icon" src={p('/brand/vortex-app-icon.png')} alt="Vortex" width="72" height="72" />
+      <p class="vortex-name">Vortex</p>
+      <a class="btn" href={p('/files/test-image.png')} download>
+        Download Test Image
       </a>
     </main>
   </body>
