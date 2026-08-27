@@ -1,0 +1,61 @@
+---
+import { p } from '../utils/url.ts';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Connection Test</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        display: grid;
+        place-items: center;
+        background: #0a0a0a;
+        color: #f4f3ef;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+          "Segoe UI", sans-serif;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        text-align: center;
+      }
+      a.btn {
+        display: inline-block;
+        padding: 16px 40px;
+        background: #f4f3ef;
+        color: #0a0a0a;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: opacity 150ms;
+      }
+      a.btn:hover {
+        opacity: 0.85;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="btn" href={p('/files/test-file.txt')} download>
+        Download Test File
+      </a>
+    </main>
+  </body>
+</html>

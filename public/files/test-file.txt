@@ -1,0 +1,9 @@
+Connection test file.
+
+This file was downloaded successfully, which means your device can reach this server.
+
+- Host: hxdstudio-site (GitHub Pages)
+- Size: ~140 bytes
+- Time: 2026-08-27
+
+If you can read this, the connection works.
